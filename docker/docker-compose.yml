@@ -1,0 +1,26 @@
+name: IaC-fanout
+
+services:
+
+  localstack:
+    image: localstack/localstack:latest
+    container_name: localstack
+    environment:
+      - AWS_DEFAULT_REGION=sa-east-1
+      - AWS_ACCESS_KEY_ID=teste
+      - AWS_SECRET_ACCESS_KEY=teste
+      - DOCKER_HOST=unix:///var/run/docker.sock
+    ports:
+      - '4566-4587:4566-4587'
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    networks:
+      - dev_to
+
+volumes:
+  localstack-data:
+    name: localstack-data
+
+networks:
+  dev_to:
+    name: dev_to
