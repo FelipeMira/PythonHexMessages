@@ -144,11 +144,6 @@ output = json
      AWS_SQS_OUT_QUEUES_ALERT_X_TYPE=alert
      ```
 
-3. **Executar o Sistema**:
-   ```bash
-   python src/configuration/main.py
-   ```
-
 ---
 
 ## Logs
@@ -300,7 +295,7 @@ escolher qual estratégia usar com base no tipo de mensagem.
 
 - Devemos executar o comando: 
 ```shell
-cd ms-consumer-sqs && ./gradlew :configuration:bootRun --args='--spring.profiles.active=local'
+python src/configuration/main.py
 ```
 
 #### Mensagem para fila de recebimento e enviando para a fila de alerta
