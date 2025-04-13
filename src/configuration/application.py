@@ -2,7 +2,7 @@ import logging
 
 from src.adapters.inbound.message.sqs.sqs_input_adapter import SQSInputAdapter
 from src.adapters.inbound.message.mappers.message_in_mapper import MessageInMapper
-from src.adapters.inbound.serverless.lambda_handler import LambdaHandler
+from src.adapters.inbound.serverless.awslambda.lambda_handler import LambdaHandler
 from src.adapters.inbound.serverless.mappers.event_in_mapper import EventToMessageMapper
 from src.adapters.outbound.message.sqs_output_alert import SQSOutputAlert
 from src.adapters.outbound.message.sqs_output_error import SQSOutputError
