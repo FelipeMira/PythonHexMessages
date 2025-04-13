@@ -4,9 +4,11 @@ from src.adapters.inbound.message.sqs.sqs_input_adapter import SQSInputAdapter
 from src.adapters.inbound.message.mappers.message_in_mapper import MessageInMapper
 from src.adapters.inbound.serverless.awslambda.lambda_handler import LambdaHandler
 from src.adapters.inbound.serverless.mappers.event_in_mapper import EventToMessageMapper
+from src.adapters.outbound.database.dynamo_db_persistor import DynamoDBPersistor
 from src.adapters.outbound.message.sqs_output_alert import SQSOutputAlert
 from src.adapters.outbound.message.sqs_output_error import SQSOutputError
 from src.application.ports.inbound.process_message_use_case import ProcessMessage
+from src.application.ports.outbound.persistor_message import PersistorMessage
 from src.application.services.process_message_service import ProcessMessageService
 
 class Application:
@@ -18,7 +20,8 @@ class Application:
         """Cria e retorna a instância do ProcessMessageService."""
         sqs_output_alert = SQSOutputAlert()
         sqs_output_error = SQSOutputError()
-        return ProcessMessageService([sqs_output_alert, sqs_output_error])
+        persist_output   = DynamoDBPersistor()
+        return ProcessMessageService([sqs_output_alert, sqs_output_error], [persist_output])
 
     @staticmethod
     def start():

@@ -1,10 +1,10 @@
 # Define o provedor da AWS e a região
 provider "aws" {
   region = var.region
-  access_key                 = "teste"
-  secret_key                 = "teste"
-  skip_credentials_validation = true
-  skip_metadata_api_check    = true
+  access_key                    = "teste"
+  secret_key                    = "teste"
+  skip_credentials_validation   = true
+  skip_metadata_api_check       = true
 
 
   endpoints {
@@ -12,6 +12,7 @@ provider "aws" {
     sns       = "http://localhost:4566"
     sqs       = "http://localhost:4566"
     sts       = "http://localhost:4566"
+    dynamodb  = "http://localhost:4566"
   }
 }
 

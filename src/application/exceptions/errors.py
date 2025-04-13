@@ -1,6 +1,7 @@
 from src.application.exceptions.business_exception import BusinessException
 
 class Errors:
+    ERROR_PERSIST_PORT_NOT_FOUND = "Database not found"
     ERROR_MESSAGE_WITHOUT_TEXT = "Message without text"
     ERROR_MESSAGE_WITHOUT_ATTRIBUTES = "Message without attributes"
     ERROR_MESSAGE_WITHOUT_ATTRIBUTE_QUEUE_URL = "Message without attribute queueUrl"

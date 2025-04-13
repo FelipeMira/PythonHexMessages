@@ -1,6 +1,7 @@
 from src.application.exceptions.business_exception import BusinessException
 from src.application.exceptions.errors import Errors
 from src.application.ports.inbound.process_message_use_case import ProcessMessage
+from src.application.ports.outbound.persistor_message import PersistorMessage
 from src.application.ports.outbound.send_message import SendMessage
 from threading import Lock
 
@@ -8,7 +9,7 @@ class ProcessMessageService(ProcessMessage):
     _instance = None
     _lock = Lock()
 
-    def __new__(cls, send_messages: list[SendMessage]):
+    def __new__(cls, send_messages: list[SendMessage], persist_messages: list[PersistorMessage]):
         """
         Garante que apenas uma instância da classe seja criada.
         """
@@ -16,6 +17,7 @@ class ProcessMessageService(ProcessMessage):
             if cls._instance is None:
                 cls._instance = super(ProcessMessageService, cls).__new__(cls)
                 cls._instance.send_messages = send_messages
+                cls._instance.persist_messages = persist_messages
         return cls._instance
 
     def run(self, message):
@@ -36,8 +38,21 @@ class ProcessMessageService(ProcessMessage):
         if not x_type:
             Errors.throw_business_exception(Errors.ERROR_X_TIPO_NOT_FOUND)
 
+        persist = next(
+            (s for s in self.persist_messages if s.can_database(x_type)),
+            None
+        )
+
+        if not persist:
+            raise BusinessException(Errors.ERROR_PERSIST_PORT_NOT_FOUND)
+
+        try:
+            persist.save(message)
+        except Exception as e:
+            raise BusinessException(f"Erro ao persistir a mensagem: {e}")
+
         sender = next(
-            (s for s in self.send_messages if s.canQueue(x_type)),
+            (s for s in self.send_messages if s.can_queue(x_type)),
             None
         )
 

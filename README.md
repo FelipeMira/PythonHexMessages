@@ -31,12 +31,14 @@ Responsáveis por conectar o sistema com o mundo externo, como filas SQS, Lambda
 - **Outbound Adapters**: Enviam mensagens para filas de saída.
   - `src/adapters/outbound/message/sqs_output_alert.py`: Envia mensagens de alerta para a fila SQS.
   - `src/adapters/outbound/message/sqs_output_error.py`: Envia mensagens de erro para a fila SQS.
+  - `src/adapters/outbound/database/dynamo_db_persistor.py`: Persistência de mensagens em um banco de dados DynamoDB.
 
 ### 2. **Application (Regras de Negócio)**
 Contém os casos de uso e serviços que implementam as regras de negócio.
 
 - `src/application/ports/inbound/process_message_use_case.py`: Define a interface para o processamento de mensagens.
 - `src/application/ports/outbound/send_message.py`: Define a interface para envio de mensagens.
+- `src/application/ports/outbound/persist_message.py`: Define a interface para persistência de mensagens.
 - `src/application/services/process_message_service.py`: Implementa o caso de uso de processamento de mensagens.
 
 ### 3. **Domain (Domínio)**
@@ -95,6 +97,7 @@ Gerencia a inicialização do sistema.
 - **boto3**: SDK para integração com AWS.
 - **python-dotenv**: Gerenciamento de variáveis de ambiente.
 - **python-json-logger**: Formatação de logs em JSON.
+- **AWS DynamoDB**: Banco de dados NoSQL para persistência de mensagens.
 
 ---
 
@@ -155,6 +158,7 @@ output = json
      QUEUE_URL_ALERT=https://sqs.sa-east-1.amazonaws.com/123456789012/alert-queue
      AWS_SQS_OUT_QUEUES_ERROR_X_TYPE=error
      AWS_SQS_OUT_QUEUES_ALERT_X_TYPE=alert
+     DYNAMODB_TABLE_NAME=messages
      ```
 
 ---

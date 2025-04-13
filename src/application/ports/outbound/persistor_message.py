@@ -1,10 +1,10 @@
 from abc import ABC, abstractmethod
 
-class SendMessage(ABC):
+class PersistorMessage(ABC):
     @abstractmethod
-    def can_queue(self, message):
+    def can_database(self, message):
         pass
 
     @abstractmethod
-    def send(self, message):
+    def save(self, message):
         pass

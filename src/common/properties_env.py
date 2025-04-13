@@ -24,3 +24,6 @@ x_type_error = os.getenv("AWS_SQS_OUT_QUEUES_ERROR_X_TYPE")
 queue_alert_url = os.getenv("QUEUE_URL_ALERT")
 print(f"Queue Alert URL carregado: {queue_alert_url}")
 x_type_alert = os.getenv("AWS_SQS_OUT_QUEUES_ALERT_X_TYPE")
+
+dynamodb_table_name = os.getenv("DYNAMODB_TABLE_NAME")
+print(f"DynamoDB Table Name carregado: {dynamodb_table_name}")

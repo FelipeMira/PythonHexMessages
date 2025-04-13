@@ -18,7 +18,7 @@ class BaseQueue(SendMessage, ABC):
         self.sqs_client = sqs_client
         self.message_out_mapper = message_out_mapper
 
-    def canQueue(self, x_type: str) -> bool:
+    def can_queue(self, x_type: str) -> bool:
         """
         Verifica se o tipo da fila corresponde ao esperado.
 
@@ -38,6 +38,6 @@ class BaseQueue(SendMessage, ABC):
                 message, self.queue_url
             )
             self.sqs_client.send_message(**send_request)
-            logging.info(f"Mensagem enviada: {message.text}")
+            logging.info(f"Mensagem enviada: {message.text} para a fila {self.queue_url}")
         except Exception as e:
             logging.error(f"Erro ao enviar mensagem: {e}")
