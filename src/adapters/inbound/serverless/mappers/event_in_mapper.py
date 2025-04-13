@@ -59,6 +59,6 @@ class EventToMessageMapper:
                 result[key] = str(value)
                 logging.debug(f"Atributo processado: {key} = {value} (convertido para string)")
 
-        logging.info("Conversao dos cabeçalhos concluida.")
+        logging.info("Conversao dos cabecalhos concluida.")
         logging.debug(f"Resultado da conversao: {result}")
         return result
