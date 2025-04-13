@@ -1,7 +1,7 @@
 import json
 
-from src.adapters.inbound.serverless.errors.exception_handler_strategy import ExceptionHandlerStrategy
-from src.adapters.inbound.serverless.response.response import Response
+from src.adapters.inbound.serverless.awslambda.errors.exception_handler_strategy import ExceptionHandlerStrategy
+from src.adapters.inbound.serverless.awslambda.response.response import Response
 
 
 class KeyErrorHandler(ExceptionHandlerStrategy):

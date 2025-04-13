@@ -75,5 +75,5 @@ event = {
 context = {}
 
 if __name__ == "__main__":
-    #Application.lambda_handler(event, context)
-    Application.start()
+    Application.lambda_handler(event, context)
+    #Application.start()

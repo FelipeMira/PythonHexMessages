@@ -1,8 +1,8 @@
 import logging
 
-from src.adapters.inbound.serverless.errors.global_exception_handler import GlobalExceptionHandler
-from src.adapters.inbound.serverless.mappers.event_in_mapper import EventToMessageMapper
-from src.adapters.inbound.serverless.response.response import Response
+from src.adapters.inbound.serverless.awslambda.errors.global_exception_handler import GlobalExceptionHandler
+from src.adapters.inbound.serverless.awslambda.mappers.event_in_mapper import EventToMessageMapper
+from src.adapters.inbound.serverless.awslambda.response.response import Response
 from src.application.ports.inbound.process_message_use_case import ProcessMessage
 
 class LambdaHandler:

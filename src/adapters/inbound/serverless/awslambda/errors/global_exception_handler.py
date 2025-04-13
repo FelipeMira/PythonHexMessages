@@ -1,9 +1,9 @@
 import logging
 
-from src.adapters.inbound.serverless.errors.business_exception_handler import BusinessExceptionHandler
-from src.adapters.inbound.serverless.errors.default_exception_handler import DefaultExceptionHandler
-from src.adapters.inbound.serverless.errors.key_error_exception import KeyErrorHandler
-from src.adapters.inbound.serverless.errors.value_error_exception import ValueErrorHandler
+from src.adapters.inbound.serverless.awslambda.errors.business_exception_handler import BusinessExceptionHandler
+from src.adapters.inbound.serverless.awslambda.errors.default_exception_handler import DefaultExceptionHandler
+from src.adapters.inbound.serverless.awslambda.errors.key_error_exception import KeyErrorHandler
+from src.adapters.inbound.serverless.awslambda.errors.value_error_exception import ValueErrorHandler
 from src.application.exceptions.business_exception import BusinessException
 
 

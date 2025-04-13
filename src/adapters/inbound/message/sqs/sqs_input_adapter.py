@@ -2,8 +2,8 @@ import logging
 
 from botocore.exceptions import ClientError
 
-from src.adapters.inbound.message.config.sqs_config import SqsConfig
-from src.adapters.inbound.message.mappers.message_in_mapper import MessageInMapper
+from src.adapters.inbound.message.sqs.config import SqsConfig
+from src.adapters.inbound.message.sqs.mappers.message_in_mapper import MessageInMapper
 from src.application.ports.inbound.process_message_use_case import ProcessMessage
 from src.common.properties_env import queue_url  # Importa o current_env
 

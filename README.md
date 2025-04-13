@@ -27,12 +27,11 @@ Responsáveis por conectar o sistema com o mundo externo, como filas SQS, Lambda
 - **Inbound Adapters**: Recebem mensagens de entrada.
   - `src/adapters/inbound/message/sqs/sqs_input_adapter.py`: Escuta mensagens da fila SQS e as processa.
   - `src/adapters/inbound/serverless/awslambda/lambda_handler.py`: Recebe eventos de entrada via AWS Lambda.
-  - `src/adapters/inbound/serverless/mappers/event_in_mapper.py`: Converte eventos AWS para o modelo de domínio.
 
 - **Outbound Adapters**: Enviam mensagens para filas de saída.
-  - `src/adapters/outbound/message/sqs_output_alert.py`: Envia mensagens de alerta para a fila SQS.
-  - `src/adapters/outbound/message/sqs_output_error.py`: Envia mensagens de erro para a fila SQS.
-  - `src/adapters/outbound/database/dynamo_db_persistor.py`: Persistência de mensagens em um banco de dados DynamoDB.
+  - `src/adapters/outbound/message/sqs/sqs_output_alert.py`: Envia mensagens de alerta para a fila SQS.
+  - `src/adapters/outbound/message/sqs/sqs_output_error.py`: Envia mensagens de erro para a fila SQS.
+  - `src/adapters/outbound/database/dynamo/dynamo_db_persistor.py`: Persistência de mensagens em um banco de dados DynamoDB.
 
 ### 2. **Application (Regras de Negócio)**
 Contém os casos de uso e serviços que implementam as regras de negócio.
