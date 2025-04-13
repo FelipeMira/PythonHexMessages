@@ -205,13 +205,6 @@ No nosso caso, a interface SendMessage define um comportamento comum (enviar uma
 e SQSOutputError implementam esse comportamento de maneiras diferentes. A classe ProcessMessageService pode então 
 escolher qual estratégia usar com base no tipo de mensagem.
 
-#### Executando o projeto
-
-- Devemos executar o comando: 
-```shell
-cd ms-consumer-sqs && ./gradlew :configuration:bootRun --args='--spring.profiles.active=local'
-```
-
 #### Mensagem para fila de recebimento e enviando para a fila de alerta
 
 ```shell

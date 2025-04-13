@@ -7,7 +7,6 @@ class BusinessException(Exception):
         """
         super().__init__(message)
         self._message = message
-        self._errors = errors or {}
 
     @property
     def message(self):
@@ -16,14 +15,6 @@ class BusinessException(Exception):
     @message.setter
     def message(self, value: str):
         self._message = value
-
-    @property
-    def errors(self):
-        return self._errors
-
-    @errors.setter
-    def errors(self, value: dict):
-        self._errors = value
 
     @classmethod
     def builder(cls):
@@ -49,4 +40,4 @@ class BusinessException(Exception):
             return BusinessException(self._message, self._errors)
 
     def __str__(self):
-        return f"BusinessException(message={self.message}, errors={self.errors})"
+        return f'{{"message": "{self.message}"}}'

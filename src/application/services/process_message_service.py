@@ -2,16 +2,21 @@ from src.application.exceptions.business_exception import BusinessException
 from src.application.exceptions.errors import Errors
 from src.application.ports.inbound.process_message_use_case import ProcessMessage
 from src.application.ports.outbound.send_message import SendMessage
-
+from threading import Lock
 
 class ProcessMessageService(ProcessMessage):
-    def __init__(self, send_messages: list[SendMessage]):
-        """
-        Serviço para processar mensagens.
+    _instance = None
+    _lock = Lock()
 
-        :param send_messages: Lista de implementações de SendMessage.
+    def __new__(cls, send_messages: list[SendMessage]):
         """
-        self.send_messages = send_messages
+        Garante que apenas uma instância da classe seja criada.
+        """
+        with cls._lock:
+            if cls._instance is None:
+                cls._instance = super(ProcessMessageService, cls).__new__(cls)
+                cls._instance.send_messages = send_messages
+        return cls._instance
 
     def run(self, message):
         """
