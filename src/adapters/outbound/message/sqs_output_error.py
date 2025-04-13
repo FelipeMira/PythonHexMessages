@@ -1,5 +1,5 @@
 from src.adapters.inbound.message.config.sqs_config import SqsConfig
-from src.adapters.outbound.mappers.message_out_mapper import MessageOutMapper
+from src.adapters.outbound.message.mappers.message_out_mapper import MessageOutMapper
 from src.adapters.outbound.message.base.base_queue import BaseQueue
 from src.common.properties_env import x_type_error, queue_error_url
 

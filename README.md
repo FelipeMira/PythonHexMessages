@@ -1,8 +1,9 @@
-# Projeto: Sistema de Processamento de Mensagens com SQS
+# Projeto: Sistema de Processamento de Mensagens com SQS e DynamoDB
 
 [![Python](https://img.shields.io/badge/python-3.8%2B-blue.svg)](https://www.python.org/)
 [![AWS](https://img.shields.io/badge/aws-localstack-orange.svg)](https://localstack.cloud/)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+
 ## Descrição do Projeto
 
 Este projeto é uma aplicação desenvolvida em Python para processar mensagens recebidas de filas **AWS SQS** ou via **AWS Lambda**. Ele utiliza uma arquitetura baseada em portas e adaptadores (Ports and Adapters ou Hexagonal Architecture), promovendo a separação de responsabilidades e facilitando a manutenção e extensibilidade do sistema.

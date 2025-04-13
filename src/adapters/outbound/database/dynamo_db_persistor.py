@@ -1,7 +1,7 @@
 import logging
 
 from src.adapters.outbound.database.config.dynamo_db_config import DynamoDBConfig
-from src.adapters.outbound.mappers.message_out_db_mapper import MessageOutDBMapper
+from src.adapters.outbound.database.mappers.message_out_db_mapper import MessageOutDBMapper
 from src.application.ports.outbound.persistor_message import PersistorMessage
 from botocore.exceptions import BotoCoreError, ClientError
 
