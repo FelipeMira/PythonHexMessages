@@ -1,4 +1,4 @@
-from src.adapters.inbound.message.sqs.config.sqs_config import SqsConfig
+from src.adapters.config.sqs.sqs_config import SqsConfig
 from src.adapters.outbound.message.sqs.mappers.message_out_mapper import MessageOutMapper
 from src.adapters.outbound.message.sqs.base.base_queue import BaseQueue
 from src.common.properties_env import x_type_alert, queue_alert_url

@@ -3,7 +3,6 @@ from botocore.config import Config
 from botocore.exceptions import BotoCoreError, NoCredentialsError
 from src.common.properties_env import current_env  # Importa o current_env
 
-
 class SqsConfig:
     _instance = None
 
