@@ -1,14 +1,17 @@
 # Projeto: Sistema de Processamento de Mensagens com SQS
 
+# Projeto: Sistema de Processamento de Mensagens com SQS
+
 ## Descrição do Projeto
 
-Este projeto é uma aplicação desenvolvida em Python para processar mensagens recebidas de filas **AWS SQS**. Ele utiliza uma arquitetura baseada em portas e adaptadores (Ports and Adapters ou Hexagonal Architecture), promovendo a separação de responsabilidades e facilitando a manutenção e extensibilidade do sistema.
+Este projeto é uma aplicação desenvolvida em Python para processar mensagens recebidas de filas **AWS SQS** ou via **AWS Lambda**. Ele utiliza uma arquitetura baseada em portas e adaptadores (Ports and Adapters ou Hexagonal Architecture), promovendo a separação de responsabilidades e facilitando a manutenção e extensibilidade do sistema.
 
 O sistema é responsável por:
-- Receber mensagens de uma fila SQS.
+- Receber mensagens de uma fila SQS ou via request de um API Gateway para um Lambda.
 - Processar as mensagens de acordo com regras de negócio.
 - Enviar mensagens processadas para filas de saída (alerta ou erro).
 - Gerenciar o reconhecimento (acknowledgment) das mensagens.
+- Tratar erros de forma centralizada utilizando o `GlobalExceptionHandler`.
 
 ---
 
@@ -17,16 +20,16 @@ O sistema é responsável por:
 A estrutura do projeto segue os princípios da arquitetura hexagonal, dividindo o código em camadas bem definidas:
 
 ### 1. **Adapters (Adaptadores)**
-Responsáveis por conectar o sistema com o mundo externo, como filas SQS e mapeamento de mensagens.
+Responsáveis por conectar o sistema com o mundo externo, como filas SQS, Lambda e mapeamento de mensagens.
 
 - **Inbound Adapters**: Recebem mensagens de entrada.
   - `src/adapters/inbound/message/sqs/sqs_input_adapter.py`: Escuta mensagens da fila SQS e as processa.
-  - `src/adapters/inbound/message/mappers/message_in_mapper.py`: Converte mensagens AWS para o modelo de domínio.
+  - `src/adapters/inbound/serverless/awslambda/lambda_handler.py`: Recebe eventos de entrada via AWS Lambda.
+  - `src/adapters/inbound/serverless/mappers/event_in_mapper.py`: Converte eventos AWS para o modelo de domínio.
 
 - **Outbound Adapters**: Enviam mensagens para filas de saída.
   - `src/adapters/outbound/message/sqs_output_alert.py`: Envia mensagens de alerta para a fila SQS.
   - `src/adapters/outbound/message/sqs_output_error.py`: Envia mensagens de erro para a fila SQS.
-  - `src/adapters/outbound/mappers/message_out_mapper.py`: Converte mensagens do domínio para o formato SQS.
 
 ### 2. **Application (Regras de Negócio)**
 Contém os casos de uso e serviços que implementam as regras de negócio.
@@ -45,9 +48,18 @@ Contém configurações e utilitários compartilhados.
 
 - `src/common/properties_env.py`: Gerencia variáveis de ambiente.
 - `src/common/log_config.py`: Configura o logger para exibir logs no formato JSON.
-- `src/adapters/inbound/message/config/sqs_config.py`: Configura o cliente AWS SQS.
 
-### 5. **Configuration (Inicialização)**
+### 5. **Serverless Errors (Tratamento de Erros)**
+Gerencia o tratamento centralizado de erros usando o padrão **Strategy**.
+
+- `src/adapters/inbound/serverless/errors/global_exception_handler.py`: Gerencia o tratamento centralizado de erros.
+- `src/adapters/inbound/serverless/errors/exception_handler_strategy.py`: Define a interface para estratégias de tratamento de erros.
+- `src/adapters/inbound/serverless/errors/key_error_exception.py`: Trata erros do tipo `KeyError`.
+- `src/adapters/inbound/serverless/errors/value_error_exception.py`: Trata erros do tipo `ValueError`.
+- `src/adapters/inbound/serverless/errors/business_exception_handler.py`: Trata erros de negócio.
+- `src/adapters/inbound/serverless/errors/default_exception_handler.py`: Trata erros genéricos.
+
+### 6. **Configuration (Inicialização)**
 Gerencia a inicialização do sistema.
 
 - `src/configuration/application.py`: Configura e inicia o sistema.
@@ -285,6 +297,20 @@ e SQSOutputError implementam esse comportamento de maneiras diferentes. A classe
 escolher qual estratégia usar com base no tipo de mensagem.
 
 #### Executando o projeto
+
+- Se quisermos utilizar como um listener devemos alterar o main.py:
+```python
+if __name__ == "__main__":
+    #Application.lambda_handler(event, context)
+    Application.start()
+```
+
+- Se quisermos utilizar como um lambda handler devemos alterar o main.py:
+```python
+if __name__ == "__main__":
+    Application.lambda_handler(event, context)
+    #Application.start()
+```
 
 - Devemos executar o comando: 
 ```shell
