@@ -41,7 +41,3 @@ class BaseQueue(SendMessage, ABC):
             logging.info(f"Mensagem enviada: {message.text}")
         except Exception as e:
             logging.error(f"Erro ao enviar mensagem: {e}")
-            self.sqs_client.send_message(**send_request)
-            logging.info(f"Mensagem enviada: {message.text}")
-        except Exception as e:
-            logging.error(f"Erro ao enviar mensagem: {e}")
