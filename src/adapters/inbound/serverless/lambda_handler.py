@@ -29,7 +29,7 @@ class LambdaHandler:
         try:
             # Processa cada registro do evento
             logging.info(f"Processando evento: {event}")
-            body = event["nonexistent_body"]
+            body = event["body"]
 
             # Extrai os headers do evento (ex.: vindo do API Gateway)
             headers = event.get("headers", {})
