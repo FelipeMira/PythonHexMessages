@@ -25,48 +25,48 @@ A estrutura do projeto segue os princípios da arquitetura hexagonal, dividindo 
 Responsáveis por conectar o sistema com o mundo externo, como filas SQS, Lambda e mapeamento de mensagens.
 
 - **Inbound Adapters**: Recebem mensagens de entrada.
-  - `src/adapters/inbound/message/sqs/sqs_input_adapter.py`: Escuta mensagens da fila SQS e as processa.
-  - `src/adapters/inbound/serverless/awslambda/lambda_handler.py`: Recebe eventos de entrada via AWS Lambda.
+  - `app/src/adapters/inbound/message/sqs/sqs_input_adapter.py`: Escuta mensagens da fila SQS e as processa.
+  - `app/src/adapters/inbound/serverless/awslambda/lambda_handler.py`: Recebe eventos de entrada via AWS Lambda.
 
 - **Outbound Adapters**: Enviam mensagens para filas de saída.
-  - `src/adapters/outbound/message/sqs/sqs_output_alert.py`: Envia mensagens de alerta para a fila SQS.
-  - `src/adapters/outbound/message/sqs/sqs_output_error.py`: Envia mensagens de erro para a fila SQS.
-  - `src/adapters/outbound/database/dynamo/dynamo_db_persistor.py`: Persistência de mensagens em um banco de dados DynamoDB.
+  - `app/src/adapters/outbound/message/sqs/sqs_output_alert.py`: Envia mensagens de alerta para a fila SQS.
+  - `app/src/adapters/outbound/message/sqs/sqs_output_error.py`: Envia mensagens de erro para a fila SQS.
+  - `app/src/adapters/outbound/database/dynamo/dynamo_db_persistor.py`: Persistência de mensagens em um banco de dados DynamoDB.
 
 ### 2. **Application (Regras de Negócio)**
 Contém os casos de uso e serviços que implementam as regras de negócio.
 
-- `src/application/ports/inbound/process_message_use_case.py`: Define a interface para o processamento de mensagens.
-- `src/application/ports/outbound/send_message.py`: Define a interface para envio de mensagens.
-- `src/application/ports/outbound/persist_message.py`: Define a interface para persistência de mensagens.
-- `src/application/services/process_message_service.py`: Implementa o caso de uso de processamento de mensagens.
+- `app/src/application/ports/inbound/process_message_use_case.py`: Define a interface para o processamento de mensagens.
+- `app/src/application/ports/outbound/send_message.py`: Define a interface para envio de mensagens.
+- `app/src/application/ports/outbound/persist_message.py`: Define a interface para persistência de mensagens.
+- `app/src/application/services/process_message_service.py`: Implementa o caso de uso de processamento de mensagens.
 
 ### 3. **Domain (Domínio)**
 Representa o núcleo do sistema, contendo as entidades e regras de negócio puras.
 
-- `src/application/domain/message.py`: Define o modelo de domínio para mensagens.
+- `app/src/application/domain/message.py`: Define o modelo de domínio para mensagens.
 
 ### 4. **Common (Utilitários e Configurações)**
 Contém configurações e utilitários compartilhados.
 
-- `src/common/properties_env.py`: Gerencia variáveis de ambiente.
-- `src/common/log_config.py`: Configura o logger para exibir logs no formato JSON.
+- `app/src/common/properties_env.py`: Gerencia variáveis de ambiente.
+- `app/src/common/log_config.py`: Configura o logger para exibir logs no formato JSON.
 
 ### 5. **Serverless Errors (Tratamento de Erros)**
 Gerencia o tratamento centralizado de erros usando o padrão **Strategy**.
 
-- `src/adapters/inbound/serverless/errors/global_exception_handler.py`: Gerencia o tratamento centralizado de erros.
-- `src/adapters/inbound/serverless/errors/exception_handler_strategy.py`: Define a interface para estratégias de tratamento de erros.
-- `src/adapters/inbound/serverless/errors/key_error_exception.py`: Trata erros do tipo `KeyError`.
-- `src/adapters/inbound/serverless/errors/value_error_exception.py`: Trata erros do tipo `ValueError`.
-- `src/adapters/inbound/serverless/errors/business_exception_handler.py`: Trata erros de negócio.
-- `src/adapters/inbound/serverless/errors/default_exception_handler.py`: Trata erros genéricos.
+- `app/src/adapters/inbound/serverless/errors/global_exception_handler.py`: Gerencia o tratamento centralizado de erros.
+- `app/src/adapters/inbound/serverless/errors/exception_handler_strategy.py`: Define a interface para estratégias de tratamento de erros.
+- `app/src/adapters/inbound/serverless/errors/key_error_exception.py`: Trata erros do tipo `KeyError`.
+- `app/src/adapters/inbound/serverless/errors/value_error_exception.py`: Trata erros do tipo `ValueError`.
+- `app/src/adapters/inbound/serverless/errors/business_exception_handler.py`: Trata erros de negócio.
+- `app/src/adapters/inbound/serverless/errors/default_exception_handler.py`: Trata erros genéricos.
 
 ### 6. **Configuration (Inicialização)**
 Gerencia a inicialização do sistema.
 
-- `src/configuration/application.py`: Configura e inicia o sistema.
-- `src/configuration/main.py`: Ponto de entrada principal da aplicação.
+- `app/src/configuration/application.py`: Configura e inicia o sistema.
+- `app/src/configuration/main.py`: Ponto de entrada principal da aplicação.
 
 ---
 
