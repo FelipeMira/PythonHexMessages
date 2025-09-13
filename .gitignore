@@ -4,3 +4,4 @@
 /infra/terraform.tfstate
 /infra/.terraform/
 /infra/terraform.tfstate.backup
+.DS_Store
